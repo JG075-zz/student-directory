@@ -24,20 +24,20 @@ def input_students
 end
 
 def print_header
-  puts "The students of Villains Academy"
-  puts "-------------"
+  puts "The students of Villains Academy".center(70)
+  puts "-------------".center(70)
 end
 
 def print(students)
    student_count = 0
    until student_count == students.length
-     puts "#{student_count+1}. #{students[student_count][:name]} (#{students[student_count][:cohort]}) cohort. Hobbies: #{students[student_count][:hobbies]}, Country: #{students[student_count][:country]}, Height: #{students[student_count][:height]}."
+     puts "#{student_count+1}. #{students[student_count][:name]} (#{students[student_count][:cohort]}) cohort. Hobbies: #{students[student_count][:hobbies]}, Country: #{students[student_count][:country]}, Height: #{students[student_count][:height]} ft.".center(70)
      student_count += 1
    end
 end
 
 def print_footer(students)
-  puts "Overall, we have #{students.count} great students"
+  puts "Overall, we have #{students.count} great students".center(70)
 end
 # nothing happens until we call the methods
 students = input_students
