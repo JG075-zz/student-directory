@@ -24,7 +24,10 @@ end
 
 def print(students)
   students.each_with_index do |student, number|
-    puts "#{number+1}. #{student[:name]} (#{student[:cohort]} cohort)"
+    # show only students that name's start with the given letter
+    if student[:name][0].downcase == "j"
+      puts "#{number+1}. #{student[:name]} (#{student[:cohort]} cohort)"
+    end
   end
 end
 
