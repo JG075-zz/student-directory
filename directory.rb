@@ -24,7 +24,7 @@ end
 
 def print(students)
   students.each_with_index do |student, number|
-    # show only students that name's start with the given letter
+    # show only students that name's are less than 12 characters
     if student[:name].length < 12
       puts "#{number+1}. #{student[:name]} (#{student[:cohort]} cohort)"
     end
