@@ -39,11 +39,24 @@ def print_header
 end
 
 def print(students)
-   student_count = 0
-   until student_count == students.length
-       puts "#{student_count+1}. #{students[student_count][:name]} (#{students[student_count][:cohort]}) cohort. Hobbies: #{students[student_count][:hobbies]}, Country: #{students[student_count][:country]}, Height: #{students[student_count][:height]} ft.".center(70)
-       student_count += 1
-   end
+  cohort_list = []
+  # add non-duplicate cohorts to the cohort_list
+  students.each do |student|
+    if !cohort_list.include?(student[:cohort])
+      cohort_list << student[:cohort]
+    end
+  end
+  # used to number list
+  student_count = 0
+  # for each cohort, list all students that belong to that group
+  cohort_list.each do |cohort|
+    students.each do |student|
+      if student[:cohort] == cohort
+        puts "#{student_count+1}. #{student[:name]} (#{student[:cohort]}) cohort. Hobbies: #{student[:hobbies]}, Country: #{student[:country]}, Height: #{student[:height]} ft.".center(70)
+        student_count += 1()
+      end
+    end
+  end
 end
 
 def print_footer(students)
