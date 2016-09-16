@@ -5,7 +5,7 @@ def input_students
   # create an empty array
   students = []
   # get the first name
-  name = gets.chomp.split("(")
+  name = gets.delete("\n").split("(")
   # while the name is not empty, repeat this code
   while !name.empty? do
     # check if cohort has been entered
@@ -18,16 +18,16 @@ def input_students
     # remove any trailing white space from name
     name = name[0].rstrip
     puts "Please enter any hobbies they have (else 'none')"
-    hobbies = gets.chomp
+    hobbies = gets.delete("\n")
     puts "Please enter their country of birth"
-    country = gets.chomp.to_sym
+    country = gets.delete("\n").to_sym
     puts "Please enter their height (in ft)"
-    height = gets.chomp
+    height = gets.delete("\n")
     # add the student hash to the array
     students << {name: name, hobbies: hobbies, country: country, height: height, cohort: cohort}
     puts "Now we have #{students.count} students"
     # get another name from the user
-    name = gets.chomp.split("(")
+    name = gets.delete("\n").split("(")
   end
   # return the array of students
   students
@@ -60,9 +60,10 @@ def print_students(students)
 end
 
 def print_footer(students)
-  print "Overall, we have #{students.count} great student"
+  str = "Overall, we have #{students.count} great student"
   # omit the "s" on "student" if there is only one student
-  puts students.count == 1 ? "" : "s"
+  str += students.count == 1 ? "" : "s"
+  puts str.center(70)
 end
 # nothing happens until we call the methods
 students = input_students
