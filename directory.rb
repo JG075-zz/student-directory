@@ -38,7 +38,7 @@ def print_header
   puts "-------------".center(70)
 end
 
-def print(students)
+def print_students(students)
   cohort_list = []
   # add non-duplicate cohorts to the cohort_list
   students.each do |student|
@@ -46,24 +46,26 @@ def print(students)
       cohort_list << student[:cohort]
     end
   end
-  # used to number list
+  # used to number student list
   student_count = 0
   # for each cohort, list all students that belong to that group
   cohort_list.each do |cohort|
     students.each do |student|
       if student[:cohort] == cohort
         puts "#{student_count+1}. #{student[:name]} (#{student[:cohort]}) cohort. Hobbies: #{student[:hobbies]}, Country: #{student[:country]}, Height: #{student[:height]} ft.".center(70)
-        student_count += 1()
+        student_count += 1
       end
     end
   end
 end
 
 def print_footer(students)
-  puts "Overall, we have #{students.count} great students".center(70)
+  print "Overall, we have #{students.count} great student"
+  # omit the "s" on "student" if there is only one student
+  puts students.count == 1 ? "" : "s"
 end
 # nothing happens until we call the methods
 students = input_students
 print_header
-print(students)
+print_students(students)
 print_footer(students)
