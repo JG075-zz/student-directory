@@ -10,7 +10,7 @@ def input_students
   while !name.empty? do
     # check if cohort has been entered
     if name[1] == nil
-      cohort = :none
+      cohort = :no
     # if so, set cohort to the one entered, and delte the trailing ")"
     else
       cohort = name[1].delete(")").to_sym
@@ -52,7 +52,7 @@ def print_students(students)
   cohort_list.each do |cohort|
     students.each do |student|
       if student[:cohort] == cohort
-        puts "#{student_count+1}. #{student[:name]} (#{student[:cohort]}) cohort. Hobbies: #{student[:hobbies]}, Country: #{student[:country]}, Height: #{student[:height]} ft.".center(70)
+        puts "#{student_count+1}. #{student[:name]} (#{student[:cohort]} cohort). Hobbies: #{student[:hobbies]}, Country: #{student[:country]}, Height: #{student[:height]} ft.".center(70)
         student_count += 1
       end
     end
