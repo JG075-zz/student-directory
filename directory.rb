@@ -6,14 +6,17 @@ def input_students
   students = []
   # get the first name
   name = gets.chomp.split("(")
-  if name[1] == nil
-    cohort = :none
-  else
-    cohort = name[1].delete(")").to_sym
-  end
-  name = name[0].rstrip
   # while the name is not empty, repeat this code
   while !name.empty? do
+    # check if cohort has been entered
+    if name[1] == nil
+      cohort = :none
+    # if so, set cohort to the one entered, and delte the trailing ")"
+    else
+      cohort = name[1].delete(")").to_sym
+    end
+    # remove any trailing white space from name
+    name = name[0].rstrip
     puts "Please enter any hobbies they have (else 'none')"
     hobbies = gets.chomp
     puts "Please enter their country of birth"
@@ -24,7 +27,7 @@ def input_students
     students << {name: name, hobbies: hobbies, country: country, height: height, cohort: cohort}
     puts "Now we have #{students.count} students"
     # get another name from the user
-    name = gets.chomp
+    name = gets.chomp.split("(")
   end
   # return the array of students
   students
@@ -38,8 +41,8 @@ end
 def print(students)
    student_count = 0
    until student_count == students.length
-     puts "#{student_count+1}. #{students[student_count][:name]} (#{students[student_count][:cohort]}) cohort. Hobbies: #{students[student_count][:hobbies]}, Country: #{students[student_count][:country]}, Height: #{students[student_count][:height]} ft.".center(70)
-     student_count += 1
+       puts "#{student_count+1}. #{students[student_count][:name]} (#{students[student_count][:cohort]}) cohort. Hobbies: #{students[student_count][:hobbies]}, Country: #{students[student_count][:country]}, Height: #{students[student_count][:height]} ft.".center(70)
+       student_count += 1
    end
 end
 
