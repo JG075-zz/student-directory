@@ -39,23 +39,27 @@ def print_header
 end
 
 def print_students(students)
-  cohort_list = []
-  # add non-duplicate cohorts to the cohort_list
-  students.each do |student|
-    if !cohort_list.include?(student[:cohort])
-      cohort_list << student[:cohort]
-    end
-  end
-  # used to number student list
-  student_count = 0
-  # for each cohort, list all students that belong to that group
-  cohort_list.each do |cohort|
+  if students.count > 1
+    cohort_list = []
+    # add non-duplicate cohorts to the cohort_list
     students.each do |student|
-      if student[:cohort] == cohort
-        puts "#{student_count+1}. #{student[:name]} (#{student[:cohort]} cohort). Hobbies: #{student[:hobbies]}, Country: #{student[:country]}, Height: #{student[:height]} ft.".center(70)
-        student_count += 1
+      if !cohort_list.include?(student[:cohort])
+        cohort_list << student[:cohort]
       end
     end
+    # used to number student list
+    student_count = 0
+    # for each cohort, list all students that belong to that group
+    cohort_list.each do |cohort|
+      students.each do |student|
+        if student[:cohort] == cohort
+          puts "#{student_count+1}. #{student[:name]} (#{student[:cohort]} cohort). Hobbies: #{student[:hobbies]}, Country: #{student[:country]}, Height: #{student[:height]} ft.".center(70)
+          student_count += 1
+        end
+      end
+    end
+  else
+    puts "No students added yet.".center(70)
   end
 end
 
