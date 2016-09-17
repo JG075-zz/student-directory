@@ -20,6 +20,10 @@ def print_menu
   }
 end
 
+def print_feedback(message)
+  puts "\n#{message} complete" + "\n "
+end
+
 def save_students
   # open the file for writing
   file = File.open("students.csv", "w")
@@ -29,6 +33,7 @@ def save_students
     file.puts student_data.join(",")
   end
   file.close
+  print_feedback("Save the list to students.csv")
 end
 
 def load_students(filename = "students.csv")
@@ -38,11 +43,12 @@ def load_students(filename = "students.csv")
     push_to_student_list(name, cohort.to_sym)
   end
   file.close
+  print_feedback("Load the list from students.csv")
 end
 
 def try_load_students
   filename = ARGV.first # first argument from the command line
-  filename = "students.csv" if filename.nil? # load students.csv if empty
+  return if filename.nil? # get out of the method if it isn't given
   if File.exists?(filename) # if it exists
     load_students(filename)
     puts "\nLoaded #{@students.count} from #{filename}" + "\n "
@@ -60,6 +66,7 @@ def show_students
   print_header
   print_student_list
   print_footer
+  print_feedback("Show the students")
 end
 
 def process(selection)
@@ -68,7 +75,9 @@ def process(selection)
   when "2" then show_students
   when "3" then save_students
   when "4" then load_students("students.csv")
-  when "5" then exit
+  when "5" then
+    print_feedback("Exiting program...")
+    exit
   else puts "I don't know what you mean, try again"
   end
 end
@@ -85,6 +94,7 @@ def input_students
     # get another name from the user
     name = STDIN.gets.chomp
   end
+  puts "\nInput the students complete" + "\n "
 end
 
 def print_header
