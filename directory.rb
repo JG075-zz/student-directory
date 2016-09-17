@@ -39,7 +39,7 @@ end
 
 def try_load_students
   filename = ARGV.first # first argument from the command line
-  return if filename.nil? # get out of the method if it isn't given
+  filename = "students.csv" if filename.nil? # load students.csv if empty
   if File.exists?(filename) # if it exists
     load_students(filename)
     puts "Loaded #{@students.count} from #{filename}"
@@ -68,7 +68,7 @@ def process(selection)
   when "3"
     save_students
   when "4"
-    load_students
+    load_students("students.csv")
   when "9"
     exit
   else
