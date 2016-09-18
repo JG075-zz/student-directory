@@ -1,4 +1,4 @@
-
+require "csv"
 @students = [] # an empty array accessible to all methods
 
 def load_program
@@ -36,11 +36,10 @@ end
 
 def save_students
   # open the file for writing
-  File.open(ask_for_file, "w") do |file|
+  CSV.open(ask_for_file, "w") do |file|
     # iterate over the array of students
     @students.each do |student|
-      student_data = [student[:name], student[:cohort]]
-      file.puts student_data.join(",")
+      file << [student[:name], student[:cohort]]
     end
   end
   print_feedback("Save the list to file")
@@ -52,11 +51,9 @@ def load_students(filename = "students.csv")
     puts "\nSorry, #{filename} doesn't exist."
     exit
   end
-  File.open(filename, "r") do |file|
-    file.readlines.each do |line|
-      name, cohort = line.chomp.split(",")
+  CSV.foreach(filename) do |line|
+      name, cohort = line
       push_to_student_list(name, cohort.to_sym)
-    end
   end
   print_feedback("Load the list from file")
 end
