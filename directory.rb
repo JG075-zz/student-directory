@@ -36,13 +36,13 @@ end
 
 def save_students
   # open the file for writing
-  file = File.open(ask_for_file, "w")
-  # iterate over the array of students
-  @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    file.puts student_data.join(",")
+  File.open(ask_for_file, "w") do |file|
+    # iterate over the array of students
+    @students.each do |student|
+      student_data = [student[:name], student[:cohort]]
+      file.puts student_data.join(",")
+    end
   end
-  file.close
   print_feedback("Save the list to file")
 end
 
@@ -52,12 +52,12 @@ def load_students(filename = "students.csv")
     puts "\nSorry, #{filename} doesn't exist."
     exit
   end
-  file = File.open(filename, "r")
-  file.readlines.each do |line|
-    name, cohort = line.chomp.split(",")
-    push_to_student_list(name, cohort.to_sym)
+  File.open(filename, "r") do |file|
+    file.readlines.each do |line|
+      name, cohort = line.chomp.split(",")
+      push_to_student_list(name, cohort.to_sym)
+    end
   end
-  file.close
   print_feedback("Load the list from file")
 end
 
