@@ -14,7 +14,7 @@ def interactive_menu
 end
 
 def print_menu
-  menu = ["Input the students", "Show the students", "Save the list to students.csv", "Load the list from students.csv", "Exit"]
+  menu = ["Input the students", "Show the students", "Save the list to file", "Load the list from file", "Exit"]
   menu.each_with_index { |option, i|
     puts "#{i+1}. #{option}"
   }
@@ -24,26 +24,41 @@ def print_feedback(message)
   puts "\n#{message} complete" + "\n "
 end
 
+def ask_for_file
+  print "\nPlease enter the filename: "
+  filename = gets.chomp
+  if filename.empty?
+    puts "Please enter a filename and try again"
+    exit
+  end
+  return filename
+end
+
 def save_students
   # open the file for writing
-  file = File.open("students.csv", "w")
+  file = File.open(ask_for_file, "w")
   # iterate over the array of students
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
     file.puts student_data.join(",")
   end
   file.close
-  print_feedback("Save the list to students.csv")
+  print_feedback("Save the list to file")
 end
 
 def load_students(filename = "students.csv")
+  puts filename
+  if !File.exists?(filename)
+    puts "\nSorry, #{filename} doesn't exist."
+    exit
+  end
   file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
     push_to_student_list(name, cohort.to_sym)
   end
   file.close
-  print_feedback("Load the list from students.csv")
+  print_feedback("Load the list from file")
 end
 
 def try_load_students
@@ -74,11 +89,11 @@ def process(selection)
   when "1" then input_students
   when "2" then show_students
   when "3" then save_students
-  when "4" then load_students("students.csv")
+  when "4" then load_students(ask_for_file)
   when "5" then
     print_feedback("Exiting program...")
     exit
-  else puts "I don't know what you mean, try again"
+  else puts "\nI don't know what you mean, try again" + "\n "
   end
 end
 
@@ -90,7 +105,7 @@ def input_students
   while !name.empty? do
     # add the student hash to the array
     push_to_student_list(name)
-    puts "\nNow we have #{@students.count} students" + "\n "
+    puts "\nNow we have #{@students.count} students"
     # get another name from the user
     name = STDIN.gets.chomp
   end
@@ -108,7 +123,7 @@ def print_student_list
 end
 
 def print_footer
- puts " \nOverall, we have #{@students.count} great students" + "\n "
+ puts " \nOverall, we have #{@students.count} great students"
 end
 
 load_program
